@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div align="center">
+
+<h2>JavaScript Can Check Whether a URL is malicious</h2>
+
+<p>Please input a URL you want to check:</p>
+
+<input id="url">
+
+<button type="button" onclick="myFunction()">Submit</button>
+
+<h2 id="demo"></h2>
+
+</div>
+
+<script type="text/javascript">
+var json1;
+function myFunction() {
+    var x, text, i, flag=0;
+
+    x = document.getElementById("url").value;
+
+	loadJSON(function(json) {
+		console.log(json);
+		json1 = json;
+		for (i=0;i<json1.maliciousurl.length;i++){
+			if(x===json1.maliciousurl[i]){
+				flag=1;
+				break;
+			}
+		}
+		if(flag==1){
+			document.getElementById("demo").innerHTML = "URL is malicious";
+			flag = 0;
+		}
+		else{
+			for(i=0;i<json1.nonmaliciousurl.length;i++){
+				if(x===json1.nonmaliciousurl[i]){
+					flag = 1;
+					break;
+				}
+			}
+			if(flag==1){
+				document.getElementById("demo").innerHTML = "URL is not malicious";
+				flag=0;
+			}
+			else{
+				document.getElementById("demo").innerHTML = "No information about the URL is available";
+			}
+		}
+	});
+}
+
+function loadJSON(callback) {   
+  var xobj = new XMLHttpRequest();
+  xobj.overrideMimeType("application/json");
+  xobj.open('GET', './test.json', true);
+  xobj.onreadystatechange = function () {
+    if (xobj.readyState == 4 && xobj.status == "200") {
+      callback(JSON.parse(xobj.responseText));
+    }
+  };
+  xobj.send(null);  
+}
+
+</script>
+
+</body>
+</html>

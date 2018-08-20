@@ -1,0 +1,7 @@
+{
+	"maliciousurl":["https://jsoneditoronline.org",
+					"https://facebook.com"],
+	
+	"nonmaliciousurl":["https://google.com",
+						"https://xyz.com"]
+}
